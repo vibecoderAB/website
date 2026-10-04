@@ -6,6 +6,14 @@
   <title>Mohammad Abrar Quazi, Oracle DBA</title>
   <meta name="description" content="Mohammad Abrar Quazi is an Oracle Certified Professional and database administrator in Hyderabad, working with RAC, Data Guard, RMAN, ASM, GoldenGate and performance tuning.">
   <meta name="theme-color" content="#0A0A0A">
+  <script>
+    // Apply the saved theme before first paint so the page never flashes the wrong colours.
+    (function () {
+      var t = 'dark';
+      try { t = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+      document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Young+Serif&display=swap" rel="stylesheet">
@@ -15,12 +23,12 @@
       theme: {
         extend: {
           colors: {
-            paper: '#0A0A0A',
-            ink: '#F5F5F5',
-            muted: '#A3A8B4',
-            rule: 'rgba(255, 255, 255, 0.1)',
-            beam: '#5AD8F2',      // hsl(190 85% 65%), the coolest beam
-            violet: '#735AF2',    // hsl(250 85% 65%), the warmest beam
+            paper: 'var(--paper)',
+            ink: 'var(--ink)',
+            muted: 'var(--muted)',
+            rule: 'var(--rule)',
+            beam: 'var(--beam)',
+            violet: 'var(--violet)',
           },
           fontFamily: {
             serif: ['"Young Serif"', 'Georgia', 'serif'],
@@ -37,16 +45,38 @@
       /* spacing tokens */
       --s-section: clamp(5rem, 10vw, 8.5rem);
       --gutter: clamp(1rem, 4vw, 3rem);
-      /* elevation on black: a hairline edge plus a beam-tinted glow */
-      --lift-1: inset 0 1px 0 rgba(255, 255, 255, .05);
+    }
+    /* Dark theme (default). Accents are the two ends of the beam hue range. */
+    :root, [data-theme="dark"] {
+      --paper: #0A0A0A; --ink: #F5F5F5; --muted: #A3A8B4; --rule: rgba(255, 255, 255, .1);
+      --beam: #5AD8F2; --violet: #735AF2; --live: #34D399;
+      --glass: rgba(18, 19, 23, .62); --header: rgba(10, 10, 10, .55); --hairline: rgba(255, 255, 255, .06);
+      --veil: rgba(10, 10, 10, .05); --ring: #121317; --chip: rgba(255, 255, 255, .07); --quiet-edge: rgba(245, 245, 245, .55);
+      --photo-tint: #4A5A8A; --photo-fade: rgba(10, 10, 10, .6);
+      --d-fill: rgba(255, 255, 255, .06); --d-stroke: rgba(255, 255, 255, .5);
+      --d-solid: #F5F5F5; --d-on-solid: #0A0A0A; --d-on-solid-sub: #4B5060;
+      /* elevation: a hairline edge plus a beam-tinted glow */
       --lift-2: 0 0 0 1px rgba(255, 255, 255, .08), 0 12px 32px -12px rgba(90, 216, 242, .35);
       --lift-3: 0 0 0 1px rgba(255, 255, 255, .08), 0 24px 60px -24px rgba(90, 216, 242, .28), 0 40px 100px -40px rgba(115, 90, 242, .35);
-      --glass: rgba(18, 19, 23, .62);
+      color-scheme: dark;
     }
-    html { scroll-behavior: smooth; background: #0A0A0A; }
+    /* Light theme: cool paper, darker accents so they keep their contrast */
+    [data-theme="light"] {
+      --paper: #F4F6FA; --ink: #0E1117; --muted: #4B5263; --rule: rgba(14, 17, 23, .12);
+      --beam: #0F8FB0; --violet: #5B3FE0; --live: #10B981;
+      --glass: rgba(255, 255, 255, .62); --header: rgba(244, 246, 250, .72); --hairline: rgba(14, 17, 23, .08);
+      --veil: rgba(255, 255, 255, .05); --ring: #F8F9FB; --chip: rgba(14, 17, 23, .06); --quiet-edge: rgba(14, 17, 23, .55);
+      --photo-tint: #8FA3C8; --photo-fade: rgba(14, 17, 23, .22);
+      --d-fill: rgba(255, 255, 255, .75); --d-stroke: rgba(14, 17, 23, .45);
+      --d-solid: #0E1117; --d-on-solid: #F5F5F5; --d-on-solid-sub: #A3A8B4;
+      --lift-2: 0 0 0 1px rgba(14, 17, 23, .06), 0 12px 28px -12px rgba(15, 143, 176, .35);
+      --lift-3: 0 0 0 1px rgba(14, 17, 23, .06), 0 24px 60px -28px rgba(15, 143, 176, .3), 0 40px 90px -40px rgba(91, 63, 224, .3);
+      color-scheme: light;
+    }
+    html { scroll-behavior: smooth; background: var(--paper); }
     body {
-      background-color: #0A0A0A;
-      color: #F5F5F5;
+      background-color: var(--paper);
+      color: var(--ink);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
@@ -57,10 +87,10 @@
     section[id] { scroll-margin-top: 4.5rem; }
 
     /* Beams background (port of the beams-background component), fixed behind the whole page */
-    .beams { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: #0A0A0A; }
+    .beams { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: var(--paper); }
     .beams canvas { position: absolute; inset: 0; filter: blur(15px); }
     .beams-veil {
-      position: absolute; inset: 0; background: rgba(10, 10, 10, .05);
+      position: absolute; inset: 0; background: var(--veil);
       -webkit-backdrop-filter: blur(50px); backdrop-filter: blur(50px);
       animation: veil 10s ease-in-out infinite;
     }
@@ -81,8 +111,8 @@
     }
     .btn:hover { transform: translateY(-2px); }
     .btn:active { transform: translateY(0) scale(.97); }
-    .btn-primary { background: #F5F5F5; color: #0A0A0A; box-shadow: var(--lift-2); }
-    .btn-quiet { color: #F5F5F5; box-shadow: inset 0 0 0 1.5px rgba(245, 245, 245, .55); }
+    .btn-primary { background: var(--ink); color: var(--paper); box-shadow: var(--lift-2); }
+    .btn-quiet { color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--quiet-edge); }
     .btn-quiet:hover { opacity: .85; }
 
     .link { position: relative; font-weight: 500; text-decoration: none; }
@@ -94,26 +124,49 @@
     .link:hover::after { transform: scaleX(1); opacity: 1; }
     .link:active { opacity: .7; }
 
-    :focus-visible { outline: 2.5px solid #5AD8F2; outline-offset: 4px; border-radius: 6px; }
+    :focus-visible { outline: 2.5px solid var(--beam); outline-offset: 4px; border-radius: 6px; }
     .btn:focus-visible { border-radius: 999px; }
 
     /* Photo: a slight cool grade so it sits with the beams without hiding the face */
     .photo { position: relative; overflow: hidden; isolation: isolate; }
     .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; transform: scale(1.12); transform-origin: 50% 15%; }
-    .photo::before { content: ""; position: absolute; inset: 0; z-index: 1; background: #4A5A8A; mix-blend-mode: multiply; opacity: .14; pointer-events: none; }
-    .photo::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(10, 10, 10, .6), transparent 45%); pointer-events: none; }
+    .photo::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--photo-tint); mix-blend-mode: multiply; opacity: .14; pointer-events: none; }
+    .photo::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, var(--photo-fade), transparent 45%); pointer-events: none; }
 
     .featured { border-radius: 1.75rem; box-shadow: var(--lift-3); }
     .chip {
       display: inline-block; padding: .2rem .7rem; border-radius: 999px; font-size: .8125rem; font-weight: 500;
-      background: rgba(255, 255, 255, .07); color: #F5F5F5; line-height: 1.6;
+      background: var(--chip); color: var(--ink); line-height: 1.6;
     }
 
     /* System diagram */
-    .node-label { font-family: "Hanken Grotesk", system-ui, sans-serif; font-weight: 600; font-size: 15px; fill: #F5F5F5; }
-    .node-sub { font-family: "Hanken Grotesk", system-ui, sans-serif; font-weight: 400; font-size: 12px; fill: #A3A8B4; }
-    .on-light { fill: #0A0A0A; }
-    .on-light-sub { fill: #4B5060; }
+    .node-label { font-family: "Hanken Grotesk", system-ui, sans-serif; font-weight: 600; font-size: 15px; fill: var(--ink); }
+    .node-sub { font-family: "Hanken Grotesk", system-ui, sans-serif; font-weight: 400; font-size: 12px; fill: var(--muted); }
+    .on-light { fill: var(--d-on-solid); }
+    .on-light-sub { fill: var(--d-on-solid-sub); }
+    /* Diagram colours come from the theme; CSS beats the SVG presentation attributes */
+    .d-ink { stroke: var(--ink); }
+    .d-dots { fill: var(--ink); }
+    .d-panel { fill: var(--d-fill); fill-opacity: 1; }
+    .d-node { fill: var(--d-fill); stroke: var(--d-stroke); fill-opacity: 1; stroke-opacity: 1; }
+    .d-solid { fill: var(--d-solid); }
+    .d-standby { fill: var(--beam); stroke: var(--beam); }
+    .d-accent { fill: var(--beam); }
+    .d-accent-stroke { stroke: var(--beam); }
+    .d-violet { fill: var(--violet); }
+    .d-live { fill: var(--live); }
+
+    /* Theme toggle: the icons swap with a turn, nothing else animates */
+    .theme-toggle {
+      display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 999px;
+      color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--rule);
+      transition: transform .35s var(--ease-spring), opacity .2s ease;
+    }
+    .theme-toggle:hover { transform: rotate(-12deg); }
+    .theme-toggle:active { transform: scale(.92); }
+    .theme-toggle:focus-visible { border-radius: 999px; }
+    .theme-toggle svg { grid-area: 1 / 1; width: 1.15rem; height: 1.15rem; transition: transform .5s var(--ease-spring), opacity .25s ease; }
+    [data-theme="dark"] .icon-moon, [data-theme="light"] .icon-sun { opacity: 0; transform: rotate(-90deg) scale(.5); }
     .redo { stroke-dashoffset: 0; animation: flow 1.2s linear infinite; }
     @keyframes flow { to { stroke-dashoffset: -18; } }
     .tnum { font-variant-numeric: tabular-nums; }
@@ -129,7 +182,7 @@
       .reveal { animation: none; opacity: 1; transform: none; }
       .redo, .beams-veil { animation: none; }
       .packet { display: none; }
-      .btn, .link::after { transition: none; }
+      .btn, .link::after, .theme-toggle, .theme-toggle svg { transition: none; }
     }
   </style>
 </head>
@@ -144,13 +197,17 @@
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 btn btn-primary">Skip to content</a>
 
   <!-- Header: floating layer -->
-  <header class="sticky top-0 z-40" style="background: rgba(10, 10, 10, .55); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); box-shadow: inset 0 -1px 0 rgba(255,255,255,.06);">
+  <header class="sticky top-0 z-40" style="background: var(--header); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); box-shadow: inset 0 -1px 0 var(--hairline);">
     <div class="wrap flex items-center justify-between h-16 md:h-20">
       <a href="#top" class="font-serif text-xl md:text-[1.375rem] tracking-[-0.02em]">Abrar Quazi</a>
       <nav aria-label="Primary" class="flex items-center gap-5 md:gap-8 text-[0.9375rem]">
         <a href="#about" class="link hidden md:inline">About</a>
         <a href="#work" class="link hidden sm:inline">What I do</a>
         <a href="#experience" class="link hidden sm:inline">Experience</a>
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to light mode" title="Switch to light mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.6A8.5 8.5 0 0 1 9.4 3.8a8.5 8.5 0 1 0 10.8 10.8Z"/></svg>
+        </button>
         <a href="#contact" class="btn btn-quiet !py-2 !px-4 text-sm">Get in touch</a>
       </nav>
     </div>
@@ -190,7 +247,7 @@
 
             <defs>
               <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="1.5" cy="1.5" r="1.1" fill="#FFFFFF" opacity=".07"/>
+                <circle class="d-dots" cx="1.5" cy="1.5" r="1.1" opacity=".07"/>
               </pattern>
               <path id="p-n1" d="M84 214 C130 214 140 166 190 166"/>
               <path id="p-n2" d="M84 214 C130 214 140 262 190 262"/>
@@ -203,8 +260,8 @@
 
             <!-- readout -->
             <g transform="translate(28 26)">
-              <rect width="228" height="54" rx="12" fill="#FFFFFF" fill-opacity=".06"/>
-              <circle cx="20" cy="27" r="4.5" fill="#34D399"/>
+              <rect class="d-panel" width="228" height="54" rx="12"/>
+              <circle class="d-live" cx="20" cy="27" r="4.5"/>
               <text x="34" y="23" class="node-sub">Data Guard</text>
               <text x="34" y="42" class="node-label">in sync</text>
               <text x="128" y="23" class="node-sub">apply lag</text>
@@ -212,59 +269,59 @@
             </g>
 
             <!-- connections -->
-            <g fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity=".3">
+            <g class="d-ink" fill="none" stroke-width="1.5" opacity=".3">
               <use href="#p-n1"/><use href="#p-n2"/><use href="#p-asm"/>
               <use href="#p-bkp" stroke-dasharray="4 5"/>
             </g>
-            <use href="#p-redo" class="redo" fill="none" stroke="#5AD8F2" stroke-width="2.5" stroke-dasharray="6 3" stroke-linecap="round"/>
+            <use href="#p-redo" class="redo d-accent-stroke" fill="none" stroke-width="2.5" stroke-dasharray="6 3" stroke-linecap="round"/>
             <text x="343" y="204" text-anchor="middle" class="node-sub">redo</text>
 
             <!-- app tier -->
             <g>
-              <circle cx="60" cy="214" r="24" fill="#FFFFFF" fill-opacity=".06" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="1.5"/>
-              <path d="M51 207h18M51 214h18M51 221h18" stroke="#F5F5F5" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="60" cy="214" r="24" class="d-node" stroke-width="1.5"/>
+              <path d="M51 207h18M51 214h18M51 221h18" class="d-ink" stroke-width="1.6" stroke-linecap="round"/>
               <text x="60" y="262" text-anchor="middle" class="node-sub">app servers</text>
             </g>
 
             <!-- RAC cluster -->
             <g>
-              <rect x="172" y="122" width="136" height="168" rx="18" fill="none" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="1.25" stroke-dasharray="3 4"/>
+              <rect x="172" y="122" width="136" height="168" rx="18" fill="none" class="d-ink" stroke-opacity=".25" stroke-width="1.25" stroke-dasharray="3 4"/>
               <text x="240" y="112" text-anchor="middle" class="node-sub">RAC cluster, 19c</text>
-              <rect x="190" y="138" width="100" height="56" rx="12" fill="#F5F5F5"/>
+              <rect x="190" y="138" width="100" height="56" rx="12" class="d-solid"/>
               <text x="240" y="162" text-anchor="middle" class="node-label on-light">node 1</text>
               <text x="240" y="180" text-anchor="middle" class="node-sub on-light-sub">instance 1</text>
-              <rect x="190" y="218" width="100" height="56" rx="12" fill="#F5F5F5"/>
+              <rect x="190" y="218" width="100" height="56" rx="12" class="d-solid"/>
               <text x="240" y="242" text-anchor="middle" class="node-label on-light">node 2</text>
               <text x="240" y="260" text-anchor="middle" class="node-sub on-light-sub">instance 2</text>
             </g>
 
             <!-- ASM -->
             <g>
-              <rect x="190" y="330" width="100" height="48" rx="12" fill="#FFFFFF" fill-opacity=".06" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="1.5"/>
+              <rect x="190" y="330" width="100" height="48" rx="12" class="d-node" stroke-width="1.5"/>
               <text x="240" y="352" text-anchor="middle" class="node-label">ASM</text>
               <text x="240" y="368" text-anchor="middle" class="node-sub">shared storage</text>
             </g>
 
             <!-- standby -->
             <g>
-              <rect x="378" y="182" width="114" height="64" rx="14" fill="#5AD8F2" fill-opacity=".08" stroke="#5AD8F2" stroke-width="2"/>
+              <rect x="378" y="182" width="114" height="64" rx="14" class="d-standby" fill-opacity=".08" stroke-width="2"/>
               <text x="435" y="209" text-anchor="middle" class="node-label">standby</text>
               <text x="435" y="228" text-anchor="middle" class="node-sub">Data Guard</text>
             </g>
 
             <!-- RMAN -->
             <g>
-              <rect x="378" y="328" width="114" height="48" rx="12" fill="#FFFFFF" fill-opacity=".06" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="1.5"/>
+              <rect x="378" y="328" width="114" height="48" rx="12" class="d-node" stroke-width="1.5"/>
               <text x="435" y="350" text-anchor="middle" class="node-label">RMAN</text>
               <text x="435" y="366" text-anchor="middle" class="node-sub">backups</text>
             </g>
 
             <!-- live traffic -->
-            <g class="packet" fill="#5AD8F2">
+            <g class="packet d-accent">
               <circle r="5"><animateMotion dur="1.6s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines=".45 0 .55 1"><mpath href="#p-n1"/></animateMotion></circle>
               <circle r="5"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines=".45 0 .55 1"><mpath href="#p-n2"/></animateMotion></circle>
               <circle r="3.5" opacity=".8"><animateMotion dur="2.4s" begin=".3s" repeatCount="indefinite"><mpath href="#p-asm"/></animateMotion></circle>
-              <circle r="3.5" opacity=".7" fill="#735AF2"><animateMotion dur="3.2s" begin="1s" repeatCount="indefinite"><mpath href="#p-bkp"/></animateMotion></circle>
+              <circle r="3.5" opacity=".7" class="d-violet"><animateMotion dur="3.2s" begin="1s" repeatCount="indefinite"><mpath href="#p-bkp"/></animateMotion></circle>
             </g>
           </svg>
           <figcaption class="sr-only">The kind of Oracle environment I build and look after.</figcaption>
@@ -363,7 +420,7 @@
     </section>
 
     <!-- Experience: a genuine sequence, so dates lead -->
-    <section id="experience" class="section relative glass" style="box-shadow: inset 0 1px 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(255,255,255,.06);">
+    <section id="experience" class="section relative glass" style="box-shadow: inset 0 1px 0 var(--hairline), inset 0 -1px 0 var(--hairline);">
       <div class="wrap grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-16">
         <div>
           <h2 class="font-serif text-4xl md:text-5xl">Experience</h2>
@@ -372,7 +429,7 @@
 
         <ol class="relative border-l-2 border-rule ml-1.5">
           <li class="relative pl-8 md:pl-10 pb-12">
-            <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-beam" style="box-shadow: 0 0 0 4px #121317, 0 0 16px rgba(90,216,242,.6);" aria-hidden="true"></span>
+            <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-beam" style="box-shadow: 0 0 0 4px var(--ring), 0 0 16px var(--beam);" aria-hidden="true"></span>
             <p class="text-sm text-muted">August 2025 to now, Hyderabad</p>
             <h3 class="font-serif text-2xl mt-1">Consultant, Deloitte</h3>
           </li>
@@ -462,7 +519,7 @@
       var INTENSITY = 1;            // subtle 0.7, medium 0.85, strong 1
       var TOTAL = 30;               // MINIMUM_BEAMS * 1.5
       var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var w = 0, h = 0, beams = [];
+      var w = 0, h = 0, beams = [], isLight = false;
 
       function createBeam() {
         return {
@@ -502,8 +559,8 @@
         ctx.save();
         ctx.translate(b.x, b.y);
         ctx.rotate((b.angle * Math.PI) / 180);
-        var o = b.opacity * (0.8 + Math.sin(b.pulse) * 0.2) * INTENSITY;
-        var c = 'hsla(' + b.hue + ', 85%, 65%, ';
+        var o = b.opacity * (0.8 + Math.sin(b.pulse) * 0.2) * INTENSITY * (isLight ? 0.75 : 1);
+        var c = 'hsla(' + b.hue + ', 85%, ' + (isLight ? 58 : 65) + '%, ';
         var g = ctx.createLinearGradient(0, 0, 0, b.length);
         g.addColorStop(0, c + '0)');
         g.addColorStop(0.1, c + o * 0.5 + ')');
@@ -517,6 +574,7 @@
       }
 
       function frame() {
+        isLight = document.documentElement.getAttribute('data-theme') === 'light';
         ctx.clearRect(0, 0, w, h);
         ctx.filter = 'blur(35px)';
         for (var i = 0; i < beams.length; i++) {
@@ -534,6 +592,29 @@
       resize();
       window.addEventListener('resize', function () { resize(); if (still) frame(); });
       frame();
+      // With motion off nothing redraws on its own, so the theme toggle asks for a frame.
+      if (still) window.redrawBeams = frame;
+    })();
+
+    // Theme toggle: dark by default, remembers the visitor's choice.
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var meta = document.querySelector('meta[name="theme-color"]');
+      var root = document.documentElement;
+      function apply(t) {
+        root.setAttribute('data-theme', t);
+        var next = t === 'dark' ? 'light' : 'dark';
+        btn.setAttribute('aria-label', 'Switch to ' + next + ' mode');
+        btn.title = 'Switch to ' + next + ' mode';
+        if (meta) meta.setAttribute('content', t === 'dark' ? '#0A0A0A' : '#F4F6FA');
+        if (window.redrawBeams) window.redrawBeams();
+      }
+      apply(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+      btn.addEventListener('click', function () {
+        var t = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        apply(t);
+        try { localStorage.setItem('theme', t); } catch (e) {}
+      });
     })();
 
     // Apply lag drifts between 0 and 2 seconds so the diagram reads as a live system.
