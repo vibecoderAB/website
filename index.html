@@ -43,7 +43,7 @@
       --ease-spring: cubic-bezier(.34, 1.4, .64, 1);
       --ease-out: cubic-bezier(.22, 1, .36, 1);
       /* spacing tokens */
-      --s-section: clamp(5rem, 10vw, 8.5rem);
+      --s-section: clamp(4rem, 8vw, 6.5rem);
       --gutter: clamp(1rem, 4vw, 3rem);
     }
     /* Dark theme (default). Accents are the two ends of the beam hue range. */
@@ -224,7 +224,7 @@
   <!-- Header: floating layer -->
   <header class="sticky top-0 z-40" style="background: var(--header); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); box-shadow: inset 0 -1px 0 var(--hairline);">
     <div class="wrap flex items-center justify-between h-16 md:h-20">
-      <a href="#top" class="font-serif text-xl md:text-[1.375rem] tracking-[-0.02em]">Abrar Quazi</a>
+      <a href="#top" class="font-serif text-lg md:text-xl tracking-[-0.02em]">Abrar Quazi</a>
       <nav aria-label="Primary" class="flex items-center gap-5 md:gap-8 text-[0.9375rem]">
         <a href="#about" class="link hidden md:inline">About</a>
         <a href="#work" class="link hidden sm:inline">What I do</a>
@@ -253,10 +253,10 @@
               <p class="text-[0.9375rem] text-muted">Consultant at Deloitte, Hyderabad</p>
             </div>
           </div>
-          <h1 class="reveal reveal-2 font-serif text-[2.75rem] sm:text-6xl lg:text-[4.25rem] mt-8 max-w-[13ch]">
+          <h1 class="reveal reveal-2 font-serif text-[2.25rem] sm:text-5xl lg:text-[3.25rem] mt-8 max-w-[13ch]">
             I keep Oracle databases up, fast and recoverable.
           </h1>
-          <p class="reveal reveal-3 mt-6 text-lg text-muted max-w-[34rem]">
+          <p class="reveal reveal-3 mt-6 text-[1.0625rem] text-muted max-w-[34rem]">
             Oracle Certified Professional on Oracle Database 19c, with over four years running mission-critical databases on RAC, Data Guard, RMAN, ASM and GoldenGate.
           </p>
           <div class="reveal reveal-4 mt-9 flex flex-wrap items-center gap-3">
@@ -362,14 +362,14 @@
           <img src="brand_assets/1768686952309.jpeg" alt="Portrait of Mohammad Abrar Quazi" loading="lazy">
         </div>
         <div class="max-w-[38rem]">
-          <h2 class="font-serif text-4xl md:text-5xl">About me</h2>
-          <p class="mt-6 text-lg text-muted">
+          <h2 class="font-serif text-3xl md:text-[2.5rem]">About me</h2>
+          <p class="mt-6 text-[1.0625rem] text-muted">
             I'm a database administrator in Hyderabad and an Oracle Certified Professional (OCP) on Oracle Database 19c. For over four years I've looked after production Oracle systems that businesses can't afford to lose.
           </p>
-          <p class="mt-4 text-lg text-muted">
+          <p class="mt-4 text-[1.0625rem] text-muted">
             The OCP gave me the foundation. Production taught me the rest: building and running RAC clusters, keeping Data Guard standbys ready to take over, upgrading databases from 12c to 19c, tuning slow SQL and picking up the call when something breaks.
           </p>
-          <p class="mt-4 text-lg text-muted">
+          <p class="mt-4 text-[1.0625rem] text-muted">
             I also share what I've learned. I write on <a href="https://www.linkedin.com/in/abrartech/" class="link text-ink" target="_blank" rel="noopener">LinkedIn</a> about real incidents and interview questions, and I wrote the <a href="#vault" class="link text-ink">Oracle DBA Interview Vault</a>, a preparation book for DBAs with up to five years of experience, available on <a href="https://topmate.io/mohammad_abrar_quazi/" class="link text-ink" target="_blank" rel="noopener">Topmate</a>.
           </p>
         </div>
@@ -380,15 +380,15 @@
     <section id="work" class="section !pt-0">
       <div class="wrap">
         <div class="max-w-2xl">
-          <h2 class="font-serif text-4xl md:text-5xl">What I do</h2>
-          <p class="mt-4 text-lg text-muted">The work I handle on production Oracle databases, from setup to the 2 a.m. incident call.</p>
+          <h2 class="font-serif text-3xl md:text-[2.5rem]">What I do</h2>
+          <p class="mt-4 text-[1.0625rem] text-muted">The work I handle on production Oracle databases, from setup to the 2 a.m. incident call.</p>
         </div>
 
         <!-- Featured: elevated glass layer -->
         <article class="featured glass mt-14 p-7 md:p-12 grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-14">
           <div>
-            <h3 class="font-serif text-3xl md:text-[2.5rem]">High availability with RAC and Data Guard</h3>
-            <p class="mt-5 text-muted text-lg max-w-[36rem]">
+            <h3 class="font-serif text-2xl md:text-[2rem]">High availability with RAC and Data Guard</h3>
+            <p class="mt-5 text-muted text-[1.0625rem] max-w-[36rem]">
               I install and administer Oracle RAC clusters and configure Data Guard standbys, so a failed server or site doesn't take the business down with it.
             </p>
             <div class="mt-7 flex flex-wrap gap-2">
@@ -398,15 +398,15 @@
           <dl class="grid gap-y-6 md:border-l md:border-rule md:pl-12 self-center">
             <div>
               <dt class="text-muted">Oracle versions</dt>
-              <dd class="font-serif text-2xl md:text-3xl mt-1">11g, 12c and 19c</dd>
+              <dd class="font-serif text-xl md:text-2xl mt-1">11g, 12c and 19c</dd>
             </div>
             <div>
               <dt class="text-muted">Certification</dt>
-              <dd class="font-serif text-2xl md:text-3xl mt-1">Oracle Certified Professional, 19c</dd>
+              <dd class="font-serif text-xl md:text-2xl mt-1">Oracle Certified Professional, 19c</dd>
             </div>
             <div>
               <dt class="text-muted">Monitoring</dt>
-              <dd class="font-serif text-2xl md:text-3xl mt-1">Oracle Enterprise Manager</dd>
+              <dd class="font-serif text-xl md:text-2xl mt-1">Oracle Enterprise Manager</dd>
             </div>
           </dl>
         </article>
@@ -415,28 +415,28 @@
         <ul class="mt-6 md:mt-10">
           <li class="border-b border-rule">
             <div class="grid md:grid-cols-[18rem_1fr_11rem] gap-2 md:gap-10 py-8 md:py-10 items-baseline">
-              <h3 class="font-serif text-2xl md:text-[1.75rem]">Upgrades and migrations</h3>
+              <h3 class="font-serif text-xl md:text-[1.375rem]">Upgrades and migrations</h3>
               <p class="text-muted">Migrating production databases from 12c to 19c and moving data safely between environments.</p>
               <span class="text-sm text-muted md:text-right">Datapump, RMAN</span>
             </div>
           </li>
           <li class="border-b border-rule">
             <div class="grid md:grid-cols-[18rem_1fr_11rem] gap-2 md:gap-10 py-8 md:py-10 items-baseline">
-              <h3 class="font-serif text-2xl md:text-[1.75rem]">Performance tuning</h3>
+              <h3 class="font-serif text-xl md:text-[1.375rem]">Performance tuning</h3>
               <p class="text-muted">Finding out why a database slowed down from AWR and ADDM reports, then fixing the SQL or configuration behind it.</p>
               <span class="text-sm text-muted md:text-right">AWR, ADDM, SQL tuning</span>
             </div>
           </li>
           <li class="border-b border-rule">
             <div class="grid md:grid-cols-[18rem_1fr_11rem] gap-2 md:gap-10 py-8 md:py-10 items-baseline">
-              <h3 class="font-serif text-2xl md:text-[1.75rem]">Backup and recovery</h3>
+              <h3 class="font-serif text-xl md:text-[1.375rem]">Backup and recovery</h3>
               <p class="text-muted">Managing ASM storage and RMAN backups, and recovering data when something goes wrong.</p>
               <span class="text-sm text-muted md:text-right">RMAN, ASM</span>
             </div>
           </li>
           <li>
             <div class="grid md:grid-cols-[18rem_1fr_11rem] gap-2 md:gap-10 py-8 md:py-10 items-baseline">
-              <h3 class="font-serif text-2xl md:text-[1.75rem]">Patching and on&#8209;call</h3>
+              <h3 class="font-serif text-xl md:text-[1.375rem]">Patching and on&#8209;call</h3>
               <p class="text-muted">Applying patches, working through ORA-600 and ORA-7445 errors with Oracle Support, and resolving Sev1 and Sev2 incidents.</p>
               <span class="text-sm text-muted md:text-right">Oracle Support, shell scripts</span>
             </div>
@@ -449,7 +449,7 @@
     <section id="vault" class="section !pt-0">
       <div class="wrap">
         <div class="featured glass p-7 md:p-12 grid lg:grid-cols-[minmax(0,16rem)_1fr] gap-12 lg:gap-16 items-center">
-          <a href="https://topmate.io/mohammad_abrar_quazi/" class="book-link justify-self-center" target="_blank" rel="noopener" aria-label="Get the Oracle DBA Interview Vault on Topmate">
+          <a href="https://topmate.io/mohammad_abrar_quazi/2189032" class="book-link justify-self-center" target="_blank" rel="noopener" aria-label="Buy the Oracle DBA Interview Vault on Topmate">
             <div class="book" aria-hidden="true">
               <div class="book-cover">
                 <p class="book-title">Oracle DBA<br>Interview Vault</p>
@@ -460,8 +460,8 @@
             </div>
           </a>
           <div>
-            <h2 class="font-serif text-4xl md:text-5xl">Oracle DBA Interview Vault</h2>
-            <p class="mt-5 text-lg text-muted max-w-[38rem]">My interview preparation book for DBAs from fresher to five years of experience. It follows the way real Oracle DBA interviews unfold: the concept first, then the questions an interviewer asks next, then the production stories that prove you've done the work.</p>
+            <h2 class="font-serif text-3xl md:text-[2.5rem]">Oracle DBA Interview Vault</h2>
+            <p class="mt-5 text-[1.0625rem] text-muted max-w-[38rem]">My interview preparation book for DBAs from fresher to five years of experience. It follows the way real Oracle DBA interviews unfold: the concept first, then the questions an interviewer asks next, then the production stories that prove you've done the work.</p>
             <p class="mt-6 font-semibold">Every chapter gives you</p>
             <ul class="mt-3 grid sm:grid-cols-2 gap-x-8 gap-y-2 text-muted list-disc pl-5 marker:text-beam">
               <li>What the interviewer is really testing</li>
@@ -501,7 +501,7 @@
               </ol>
             </details>
             <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <a href="https://topmate.io/mohammad_abrar_quazi/" class="btn btn-primary" target="_blank" rel="noopener">Get the Vault on Topmate</a>
+              <a href="https://topmate.io/mohammad_abrar_quazi/2189032" class="btn btn-primary" target="_blank" rel="noopener">Buy the Vault on Topmate</a>
               <p class="text-sm text-muted">Rated 5.0 by readers on Topmate</p>
             </div>
           </div>
@@ -513,27 +513,27 @@
     <section id="experience" class="section relative glass" style="box-shadow: inset 0 1px 0 var(--hairline), inset 0 -1px 0 var(--hairline);">
       <div class="wrap grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-16">
         <div>
-          <h2 class="font-serif text-4xl md:text-5xl">Experience</h2>
-          <p class="mt-4 text-lg text-muted max-w-sm">Over four years in database administration, built on an engineering degree.</p>
+          <h2 class="font-serif text-3xl md:text-[2.5rem]">Experience</h2>
+          <p class="mt-4 text-[1.0625rem] text-muted max-w-sm">Over four years in database administration, built on an engineering degree.</p>
         </div>
 
         <ol class="relative border-l-2 border-rule ml-1.5">
           <li class="relative pl-8 md:pl-10 pb-12">
             <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-beam" style="box-shadow: 0 0 0 4px var(--ring), 0 0 16px var(--beam);" aria-hidden="true"></span>
             <p class="text-sm text-muted">August 2025 to now, Hyderabad</p>
-            <h3 class="font-serif text-2xl mt-1">Consultant, Deloitte</h3>
+            <h3 class="font-serif text-xl mt-1">Consultant, Deloitte</h3>
           </li>
           <li class="relative pl-8 md:pl-10 pb-12">
             <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-paper border-2 border-ink" aria-hidden="true"></span>
             <p class="text-sm text-muted">April 2022 to July 2025</p>
-            <h3 class="font-serif text-2xl mt-1">Oracle Database Administrator, Infosys</h3>
+            <h3 class="font-serif text-xl mt-1">Oracle Database Administrator, Infosys</h3>
             <p class="mt-3 text-muted max-w-[38rem]">Ran Oracle RAC 12c and 19c databases on Linux. Installed RAC clusters, configured Data Guard, migrated databases from 12c to 19c, tuned performance with AWR and ADDM, managed ASM and RMAN, and handled on-call support for Sev1 and Sev2 incidents.</p>
             <p class="mt-3 text-sm text-muted">Toad, SQL Developer, RMAN, Datapump, OEM, WinSCP</p>
           </li>
           <li class="relative pl-8 md:pl-10">
             <span class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-paper border-2 border-ink" aria-hidden="true"></span>
             <p class="text-sm text-muted">2015 to 2019</p>
-            <h3 class="font-serif text-2xl mt-1">Bachelor of Engineering</h3>
+            <h3 class="font-serif text-xl mt-1">Bachelor of Engineering</h3>
             <p class="mt-3 text-muted max-w-[38rem]">Dr. Babasaheb Ambedkar Marathwada University, Aurangabad.</p>
           </li>
         </ol>
@@ -544,32 +544,32 @@
     <section class="section">
       <div class="wrap grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-16">
         <div>
-          <h2 class="font-serif text-4xl md:text-5xl">Skills and tools</h2>
-          <p class="mt-4 text-lg text-muted max-w-sm">What I use to keep databases healthy.</p>
+          <h2 class="font-serif text-3xl md:text-[2.5rem]">Skills and tools</h2>
+          <p class="mt-4 text-[1.0625rem] text-muted max-w-sm">What I use to keep databases healthy.</p>
         </div>
         <dl class="grid sm:grid-cols-2 gap-x-12 gap-y-10">
           <div>
-            <dt class="font-semibold text-lg">Databases</dt>
+            <dt class="font-semibold">Databases</dt>
             <dd class="mt-2 text-muted">Oracle 11g, 12c and 19c, PostgreSQL</dd>
           </div>
           <div>
-            <dt class="font-semibold text-lg">High availability</dt>
+            <dt class="font-semibold">High availability</dt>
             <dd class="mt-2 text-muted">RAC, Data Guard, GoldenGate</dd>
           </div>
           <div>
-            <dt class="font-semibold text-lg">Storage and backup</dt>
+            <dt class="font-semibold">Storage and backup</dt>
             <dd class="mt-2 text-muted">ASM, RMAN, Datapump</dd>
           </div>
           <div>
-            <dt class="font-semibold text-lg">Performance</dt>
+            <dt class="font-semibold">Performance</dt>
             <dd class="mt-2 text-muted">AWR, ADDM, SQL optimization</dd>
           </div>
           <div>
-            <dt class="font-semibold text-lg">Systems</dt>
+            <dt class="font-semibold">Systems</dt>
             <dd class="mt-2 text-muted">Linux, shell scripting, patching</dd>
           </div>
           <div>
-            <dt class="font-semibold text-lg">Tools</dt>
+            <dt class="font-semibold">Tools</dt>
             <dd class="mt-2 text-muted">Oracle Enterprise Manager, Toad, SQL Developer, WinSCP</dd>
           </div>
         </dl>
@@ -580,9 +580,9 @@
     <section id="contact" class="relative">
       <div class="wrap section">
         <div class="glass featured p-8 md:p-16">
-          <h2 class="font-serif text-4xl md:text-6xl max-w-[16ch]">Need a hand with your Oracle databases? Let's talk.</h2>
-          <p class="mt-6 text-lg max-w-xl text-muted">I'm always happy to connect with people in the field, swap notes on production issues or hear about new opportunities.</p>
-          <a href="mailto:coredb.io@gmail.com" class="link inline-block mt-10 font-serif text-2xl sm:text-4xl md:text-5xl break-all text-ink">coredb.io@gmail.com</a>
+          <h2 class="font-serif text-3xl md:text-5xl max-w-[16ch]">Need a hand with your Oracle databases? Let's talk.</h2>
+          <p class="mt-6 text-[1.0625rem] max-w-xl text-muted">I'm always happy to connect with people in the field, swap notes on production issues or hear about new opportunities.</p>
+          <a href="mailto:coredb.io@gmail.com" class="link inline-block mt-10 font-serif text-xl sm:text-3xl md:text-4xl break-all text-ink">coredb.io@gmail.com</a>
           <div class="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-muted">
             <a href="https://www.linkedin.com/in/abrartech/" class="link" target="_blank" rel="noopener">LinkedIn</a>
             <a href="https://topmate.io/mohammad_abrar_quazi/" class="link" target="_blank" rel="noopener">Topmate</a>
