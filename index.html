@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Young+Serif&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Young+Serif&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -49,12 +49,11 @@
     /* Dark theme (default). Accents are the two ends of the beam hue range. */
     :root, [data-theme="dark"] {
       --paper: #0A0A0A; --ink: #F5F5F5; --muted: #A3A8B4; --rule: rgba(255, 255, 255, .1);
-      --beam: #5AD8F2; --violet: #735AF2; --live: #34D399;
+      --beam: #5AD8F2; --violet: #735AF2; --live: #34D399; --down: #F87171;
       --glass: rgba(18, 19, 23, .62); --header: rgba(10, 10, 10, .55); --hairline: rgba(255, 255, 255, .06);
       --veil: rgba(10, 10, 10, .05); --ring: #121317; --chip: rgba(255, 255, 255, .07); --quiet-edge: rgba(245, 245, 245, .55);
       --photo-tint: #4A5A8A; --photo-fade: rgba(10, 10, 10, .6);
-      --d-fill: rgba(255, 255, 255, .06); --d-stroke: rgba(255, 255, 255, .5);
-      --d-solid: #F5F5F5; --d-on-solid: #0A0A0A; --d-on-solid-sub: #4B5060;
+      --t-prompt: #5AD8F2; --t-ok: #34D399; --t-out: #A3A8B4; --t-bar: rgba(255, 255, 255, .04);
       /* elevation: a hairline edge plus a beam-tinted glow */
       --lift-2: 0 0 0 1px rgba(255, 255, 255, .08), 0 12px 32px -12px rgba(90, 216, 242, .35);
       --lift-3: 0 0 0 1px rgba(255, 255, 255, .08), 0 24px 60px -24px rgba(90, 216, 242, .28), 0 40px 100px -40px rgba(115, 90, 242, .35);
@@ -63,12 +62,11 @@
     /* Light theme: cool paper, darker accents so they keep their contrast */
     [data-theme="light"] {
       --paper: #F4F6FA; --ink: #0E1117; --muted: #4B5263; --rule: rgba(14, 17, 23, .12);
-      --beam: #0F8FB0; --violet: #5B3FE0; --live: #10B981;
+      --beam: #0F8FB0; --violet: #5B3FE0; --live: #10B981; --down: #DC2626;
       --glass: rgba(255, 255, 255, .62); --header: rgba(244, 246, 250, .72); --hairline: rgba(14, 17, 23, .08);
       --veil: rgba(255, 255, 255, .05); --ring: #F8F9FB; --chip: rgba(14, 17, 23, .06); --quiet-edge: rgba(14, 17, 23, .55);
       --photo-tint: #8FA3C8; --photo-fade: rgba(14, 17, 23, .22);
-      --d-fill: rgba(255, 255, 255, .75); --d-stroke: rgba(14, 17, 23, .45);
-      --d-solid: #0E1117; --d-on-solid: #F5F5F5; --d-on-solid-sub: #A3A8B4;
+      --t-prompt: #0B6F8A; --t-ok: #047857; --t-out: #4B5263; --t-bar: rgba(14, 17, 23, .035);
       --lift-2: 0 0 0 1px rgba(14, 17, 23, .06), 0 12px 28px -12px rgba(15, 143, 176, .35);
       --lift-3: 0 0 0 1px rgba(14, 17, 23, .06), 0 24px 60px -28px rgba(15, 143, 176, .3), 0 40px 90px -40px rgba(91, 63, 224, .3);
       color-scheme: light;
@@ -164,22 +162,29 @@
     .chapters[open] summary svg { transform: rotate(90deg); }
     .chapters summary:hover { opacity: .8; }
 
-    /* System diagram */
-    .node-label { font-family: "Hanken Grotesk", system-ui, sans-serif; font-weight: 600; font-size: 15px; fill: var(--ink); }
-    .node-sub { font-family: "Hanken Grotesk", system-ui, sans-serif; font-weight: 400; font-size: 12px; fill: var(--muted); }
-    .on-light { fill: var(--d-on-solid); }
-    .on-light-sub { fill: var(--d-on-solid-sub); }
-    /* Diagram colours come from the theme; CSS beats the SVG presentation attributes */
-    .d-ink { stroke: var(--ink); }
-    .d-dots { fill: var(--ink); }
-    .d-panel { fill: var(--d-fill); fill-opacity: 1; }
-    .d-node { fill: var(--d-fill); stroke: var(--d-stroke); fill-opacity: 1; stroke-opacity: 1; }
-    .d-solid { fill: var(--d-solid); }
-    .d-standby { fill: var(--beam); stroke: var(--beam); }
-    .d-accent { fill: var(--beam); }
-    .d-accent-stroke { stroke: var(--beam); }
-    .d-violet { fill: var(--violet); }
-    .d-live { fill: var(--live); }
+    /* Hero terminal: types the commands a DBA runs every day */
+    .term { overflow: hidden; }
+    .term-bar { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 1.25rem; background: var(--t-bar); box-shadow: inset 0 -1px 0 var(--hairline); }
+    .term-tabs { position: relative; display: flex; gap: 1.5rem; }
+    .term-tab { padding: 1rem 0 .9rem; font-size: .8125rem; font-weight: 500; color: var(--muted); transition: opacity .3s ease; opacity: .7; }
+    .term-tab.is-on { color: var(--ink); opacity: 1; }
+    .term-ind { position: absolute; left: 0; bottom: 0; width: 100px; height: 2px; border-radius: 2px; background: var(--beam); transform-origin: left center; transition: transform .6s var(--ease-spring); }
+    .term-host { display: flex; align-items: center; gap: .5rem; font-size: .8125rem; color: var(--muted); }
+    .term-host i { width: .45rem; height: .45rem; border-radius: 999px; background: var(--live); box-shadow: 0 0 0 3px color-mix(in srgb, var(--live) 22%, transparent); }
+    .term-body {
+      margin: 0; padding: 1.25rem 1.5rem 1.5rem; height: 23rem; overflow: hidden;
+      font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12.5px; line-height: 1.75;
+      white-space: pre-wrap; word-break: break-word; color: var(--t-out);
+      transition: opacity .35s ease;
+    }
+    .term-body.is-out { opacity: 0; }
+    .term-body .p { color: var(--t-prompt); font-weight: 500; }
+    .term-body .c { color: var(--ink); }
+    .term-body .h { color: var(--ink); opacity: .75; }
+    .term-body .ok { color: var(--t-ok); font-weight: 500; }
+    .term-cursor { display: inline-block; width: .55em; height: 1.15em; margin-left: 1px; vertical-align: -.2em; background: var(--ink); animation: cursor 1s steps(1) infinite; }
+    @keyframes cursor { 50% { opacity: 0; } }
+    @media (max-width: 480px) { .term-body { font-size: 11px; height: 21rem; padding: 1rem 1.1rem 1.25rem; } .term-tabs { gap: 1rem; } }
 
     /* Theme toggle: the icons swap with a turn, nothing else animates */
     .theme-toggle {
@@ -192,8 +197,6 @@
     .theme-toggle:focus-visible { border-radius: 999px; }
     .theme-toggle svg { grid-area: 1 / 1; width: 1.15rem; height: 1.15rem; transition: transform .5s var(--ease-spring), opacity .25s ease; }
     [data-theme="dark"] .icon-moon, [data-theme="light"] .icon-sun { opacity: 0; transform: rotate(-90deg) scale(.5); }
-    .redo { stroke-dashoffset: 0; animation: flow 1.2s linear infinite; }
-    @keyframes flow { to { stroke-dashoffset: -18; } }
     .tnum { font-variant-numeric: tabular-nums; }
 
     /* One orchestrated page-load moment: the hero assembles */
@@ -205,8 +208,8 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal { animation: none; opacity: 1; transform: none; }
-      .redo, .beams-veil { animation: none; }
-      .packet { display: none; }
+      .beams-veil, .term-cursor { animation: none; }
+      .term-ind, .term-body { transition: none; }
       .btn, .link::after, .theme-toggle, .theme-toggle svg, .book, .chapters summary svg { transition: none; }
     }
   </style>
@@ -265,92 +268,19 @@
           </div>
         </div>
 
-        <!-- The memorable element: a live RAC + Data Guard topology -->
-        <figure class="reveal reveal-3 relative glass rounded-[28px]" style="box-shadow: var(--lift-3);">
-          <svg class="w-full h-auto block" viewBox="0 0 520 440" role="img" aria-labelledby="diag-title diag-desc">
-            <title id="diag-title">An Oracle high-availability setup</title>
-            <desc id="diag-desc">Application servers connect to a two-node Oracle RAC cluster on shared ASM storage. Redo ships to a Data Guard standby database, and RMAN takes backups.</desc>
-
-            <defs>
-              <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle class="d-dots" cx="1.5" cy="1.5" r="1.1" opacity=".07"/>
-              </pattern>
-              <path id="p-n1" d="M84 214 C130 214 140 166 190 166"/>
-              <path id="p-n2" d="M84 214 C130 214 140 262 190 262"/>
-              <path id="p-redo" d="M308 214 H378"/>
-              <path id="p-asm" d="M240 290 V330"/>
-              <path id="p-bkp" d="M290 352 H378"/>
-            </defs>
-
-            <rect x="0" y="0" width="520" height="440" rx="28" fill="url(#dots)"/>
-
-            <!-- readout -->
-            <g transform="translate(28 26)">
-              <rect class="d-panel" width="228" height="54" rx="12"/>
-              <circle class="d-live" cx="20" cy="27" r="4.5"/>
-              <text x="34" y="23" class="node-sub">Data Guard</text>
-              <text x="34" y="42" class="node-label">in sync</text>
-              <text x="128" y="23" class="node-sub">apply lag</text>
-              <text x="128" y="42" class="node-label tnum" id="lag">0 s</text>
-            </g>
-
-            <!-- connections -->
-            <g class="d-ink" fill="none" stroke-width="1.5" opacity=".3">
-              <use href="#p-n1"/><use href="#p-n2"/><use href="#p-asm"/>
-              <use href="#p-bkp" stroke-dasharray="4 5"/>
-            </g>
-            <use href="#p-redo" class="redo d-accent-stroke" fill="none" stroke-width="2.5" stroke-dasharray="6 3" stroke-linecap="round"/>
-            <text x="343" y="204" text-anchor="middle" class="node-sub">redo</text>
-
-            <!-- app tier -->
-            <g>
-              <circle cx="60" cy="214" r="24" class="d-node" stroke-width="1.5"/>
-              <path d="M51 207h18M51 214h18M51 221h18" class="d-ink" stroke-width="1.6" stroke-linecap="round"/>
-              <text x="60" y="262" text-anchor="middle" class="node-sub">app servers</text>
-            </g>
-
-            <!-- RAC cluster -->
-            <g>
-              <rect x="172" y="122" width="136" height="168" rx="18" fill="none" class="d-ink" stroke-opacity=".25" stroke-width="1.25" stroke-dasharray="3 4"/>
-              <text x="240" y="112" text-anchor="middle" class="node-sub">RAC cluster, 19c</text>
-              <rect x="190" y="138" width="100" height="56" rx="12" class="d-solid"/>
-              <text x="240" y="162" text-anchor="middle" class="node-label on-light">node 1</text>
-              <text x="240" y="180" text-anchor="middle" class="node-sub on-light-sub">instance 1</text>
-              <rect x="190" y="218" width="100" height="56" rx="12" class="d-solid"/>
-              <text x="240" y="242" text-anchor="middle" class="node-label on-light">node 2</text>
-              <text x="240" y="260" text-anchor="middle" class="node-sub on-light-sub">instance 2</text>
-            </g>
-
-            <!-- ASM -->
-            <g>
-              <rect x="190" y="330" width="100" height="48" rx="12" class="d-node" stroke-width="1.5"/>
-              <text x="240" y="352" text-anchor="middle" class="node-label">ASM</text>
-              <text x="240" y="368" text-anchor="middle" class="node-sub">shared storage</text>
-            </g>
-
-            <!-- standby -->
-            <g>
-              <rect x="378" y="182" width="114" height="64" rx="14" class="d-standby" fill-opacity=".08" stroke-width="2"/>
-              <text x="435" y="209" text-anchor="middle" class="node-label">standby</text>
-              <text x="435" y="228" text-anchor="middle" class="node-sub">Data Guard</text>
-            </g>
-
-            <!-- RMAN -->
-            <g>
-              <rect x="378" y="328" width="114" height="48" rx="12" class="d-node" stroke-width="1.5"/>
-              <text x="435" y="350" text-anchor="middle" class="node-label">RMAN</text>
-              <text x="435" y="366" text-anchor="middle" class="node-sub">backups</text>
-            </g>
-
-            <!-- live traffic -->
-            <g class="packet d-accent">
-              <circle r="5"><animateMotion dur="1.6s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines=".45 0 .55 1"><mpath href="#p-n1"/></animateMotion></circle>
-              <circle r="5"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines=".45 0 .55 1"><mpath href="#p-n2"/></animateMotion></circle>
-              <circle r="3.5" opacity=".8"><animateMotion dur="2.4s" begin=".3s" repeatCount="indefinite"><mpath href="#p-asm"/></animateMotion></circle>
-              <circle r="3.5" opacity=".7" class="d-violet"><animateMotion dur="3.2s" begin="1s" repeatCount="indefinite"><mpath href="#p-bkp"/></animateMotion></circle>
-            </g>
-          </svg>
-          <figcaption class="sr-only">The kind of Oracle environment I build and look after.</figcaption>
+        <!-- The memorable element: a terminal typing the commands I run every day -->
+        <figure class="reveal reveal-3 term glass rounded-[24px]" style="box-shadow: var(--lift-3);">
+          <div class="term-bar">
+            <div class="term-tabs" aria-hidden="true">
+              <span class="term-tab is-on">SQL*Plus</span>
+              <span class="term-tab">DGMGRL</span>
+              <span class="term-tab">RMAN</span>
+              <span class="term-ind" id="term-ind"></span>
+            </div>
+            <span class="term-host" aria-hidden="true"><i></i>PROD</span>
+          </div>
+          <pre class="term-body" id="term" aria-hidden="true"></pre>
+          <figcaption class="sr-only">A terminal showing everyday Oracle DBA work: checking both RAC instances are open, confirming the Data Guard configuration is healthy, and running an RMAN backup.</figcaption>
         </figure>
       </div>
     </section>
@@ -708,14 +638,102 @@
       });
     })();
 
-    // Apply lag drifts between 0 and 2 seconds so the diagram reads as a live system.
+    // Hero terminal: types real SQL*Plus, DGMGRL and RMAN sessions, one tab at a time.
     (function () {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var el = document.getElementById('lag');
-      if (!el) return;
-      setInterval(function () {
-        el.textContent = Math.floor(Math.random() * 3) + ' s';
-      }, 2000);
+      var term = document.getElementById('term');
+      var ind = document.getElementById('term-ind');
+      if (!term) return;
+      var tabs = document.querySelectorAll('.term-tab');
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+      var d = new Date();
+      var today = ('0' + d.getDate()).slice(-2) + '-' + months[d.getMonth()] + '-' + String(d.getFullYear()).slice(-2);
+
+      // Each scene: [prompt, command, output lines]. Lines starting with '#' are column headers.
+      var scenes = [
+        [
+          ['SQL> ', 'select instance_name, status from gv$instance;', [
+            '', '#INSTANCE_NAME    STATUS', '#---------------- ------------', 'PROD1            OPEN', 'PROD2            OPEN', '']],
+          ['SQL> ', 'select database_role, open_mode from v$database;', [
+            '', '#DATABASE_ROLE    OPEN_MODE', '#---------------- ------------', 'PRIMARY          READ WRITE']]
+        ],
+        [
+          ['DGMGRL> ', 'show configuration;', [
+            '', 'Configuration - prod_dg', '', '  Protection Mode: MaxAvailability', '  Members:',
+            '  prod    - Primary database', '    prod_sb - Physical standby database', '',
+            'Configuration Status:', 'SUCCESS']]
+        ],
+        [
+          ['RMAN> ', 'backup database plus archivelog;', [
+            '', 'Starting backup at ' + today, 'using channel ORA_DISK_1', 'channel ORA_DISK_1: starting full datafile backup set',
+            'input datafile file number=00001 name=+DATA/PROD/system01.dbf', 'input datafile file number=00003 name=+DATA/PROD/sysaux01.dbf',
+            'channel ORA_DISK_1: backup set complete', 'Finished backup at ' + today]]
+        ]
+      ];
+
+      function line(text) {
+        var el = document.createElement('span');
+        if (text.charAt(0) === '#') { el.className = 'h'; el.textContent = text.slice(1); }
+        else el.innerHTML = text.replace(/\b(OPEN|READ WRITE|SUCCESS|Finished backup)\b/g, '<span class="ok">$1</span>');
+        term.appendChild(el);
+        term.appendChild(document.createTextNode('\n'));
+      }
+      function setTab(n) {
+        for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle('is-on', i === n);
+        var t = tabs[n];
+        ind.style.transform = 'translateX(' + t.offsetLeft + 'px) scaleX(' + t.offsetWidth / 100 + ')';
+      }
+      function renderStatic(n) {
+        term.textContent = '';
+        scenes[n].forEach(function (step) {
+          term.insertAdjacentHTML('beforeend', '<span class="p">' + step[0] + '</span><span class="c">' + step[1] + '</span>\n');
+          step[2].forEach(line);
+        });
+      }
+
+      setTab(0);
+      window.addEventListener('resize', function () { setTab([].indexOf.call(tabs, document.querySelector('.term-tab.is-on'))); });
+      if (still) { renderStatic(0); return; }
+
+      var cursor = document.createElement('span');
+      cursor.className = 'term-cursor';
+      function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+      async function playStep(step) {
+        var p = document.createElement('span'); p.className = 'p'; p.textContent = step[0];
+        var c = document.createElement('span'); c.className = 'c';
+        term.insertBefore(p, cursor); term.insertBefore(c, cursor);
+        await wait(500);
+        for (var i = 0; i < step[1].length; i++) {
+          c.textContent += step[1][i];
+          await wait(28 + Math.random() * 45);
+        }
+        await wait(350);
+        term.removeChild(cursor);
+        term.appendChild(document.createTextNode('\n'));
+        for (var j = 0; j < step[2].length; j++) {
+          line(step[2][j]);
+          await wait(step[0] === 'RMAN> ' ? 260 + Math.random() * 300 : 55);
+        }
+        term.appendChild(cursor);
+      }
+
+      async function run() {
+        var n = 0;
+        while (true) {
+          setTab(n);
+          term.textContent = '';
+          term.appendChild(cursor);
+          term.classList.remove('is-out');
+          for (var s = 0; s < scenes[n].length; s++) await playStep(scenes[n][s]);
+          await wait(2800);
+          term.classList.add('is-out');
+          await wait(400);
+          n = (n + 1) % scenes.length;
+        }
+      }
+      // Wait for the web font so the tab underline measures the final widths.
+      (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { setTab(0); run(); });
     })();
   </script>
 </body>
