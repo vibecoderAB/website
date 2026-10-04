@@ -139,6 +139,31 @@
       background: var(--chip); color: var(--ink); line-height: 1.6;
     }
 
+    /* Interview Vault: a CSS book modelled on the real cover */
+    .book-link { display: block; perspective: 1200px; border-radius: 10px; }
+    .book {
+      position: relative; width: 13.5rem; aspect-ratio: 3 / 4;
+      transform: rotateY(-14deg) rotateX(2deg); transition: transform .6s var(--ease-spring);
+    }
+    .book-link:hover .book, .book-link:focus-visible .book { transform: rotateY(-4deg); }
+    .book-link:active .book { transform: rotateY(-4deg) scale(.98); }
+    .book-cover {
+      position: absolute; inset: 0; display: flex; flex-direction: column; text-align: center;
+      padding: 2.4rem 1.1rem 1.4rem; border-radius: 4px 10px 10px 4px; background: #FFFFFF; color: #2F5597;
+      box-shadow: inset 7px 0 10px -6px rgba(0, 0, 0, .3), 0 0 0 1px rgba(14, 17, 23, .08), 0 30px 60px -20px rgba(0, 0, 0, .55), 0 0 60px -10px rgba(90, 216, 242, .25);
+    }
+    .book-cover::before { content: ""; position: absolute; left: 11px; top: 0; bottom: 0; width: 1px; background: rgba(14, 17, 23, .08); }
+    .book-title { font-weight: 600; font-size: 1.4rem; line-height: 1.12; letter-spacing: -0.01em; text-transform: uppercase; }
+    .book-sub { margin-top: .8rem; font-size: .8rem; color: #555B66; }
+    .book-tag { margin-top: .35rem; font-size: .6rem; line-height: 1.4; font-style: italic; color: #8A8F99; }
+    .book-by { margin-top: auto; font-size: .68rem; line-height: 1.4; color: #555B66; }
+    .book-by span { display: block; font-size: 1rem; font-weight: 600; color: #2F5597; }
+    .chapters summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: .5rem; font-weight: 500; color: var(--ink); }
+    .chapters summary::-webkit-details-marker { display: none; }
+    .chapters summary svg { width: 1rem; height: 1rem; transition: transform .35s var(--ease-spring); }
+    .chapters[open] summary svg { transform: rotate(90deg); }
+    .chapters summary:hover { opacity: .8; }
+
     /* System diagram */
     .node-label { font-family: "Hanken Grotesk", system-ui, sans-serif; font-weight: 600; font-size: 15px; fill: var(--ink); }
     .node-sub { font-family: "Hanken Grotesk", system-ui, sans-serif; font-weight: 400; font-size: 12px; fill: var(--muted); }
@@ -182,7 +207,7 @@
       .reveal { animation: none; opacity: 1; transform: none; }
       .redo, .beams-veil { animation: none; }
       .packet { display: none; }
-      .btn, .link::after, .theme-toggle, .theme-toggle svg { transition: none; }
+      .btn, .link::after, .theme-toggle, .theme-toggle svg, .book, .chapters summary svg { transition: none; }
     }
   </style>
 </head>
@@ -203,6 +228,7 @@
       <nav aria-label="Primary" class="flex items-center gap-5 md:gap-8 text-[0.9375rem]">
         <a href="#about" class="link hidden md:inline">About</a>
         <a href="#work" class="link hidden sm:inline">What I do</a>
+        <a href="#vault" class="link hidden lg:inline">Interview Vault</a>
         <a href="#experience" class="link hidden sm:inline">Experience</a>
         <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to light mode" title="Switch to light mode">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
@@ -344,7 +370,7 @@
             The OCP gave me the foundation. Production taught me the rest: building and running RAC clusters, keeping Data Guard standbys ready to take over, upgrading databases from 12c to 19c, tuning slow SQL and picking up the call when something breaks.
           </p>
           <p class="mt-4 text-lg text-muted">
-            I also write on <a href="https://www.linkedin.com/in/abrartech/" class="link text-ink" target="_blank" rel="noopener">LinkedIn</a> about production DBA work: real incidents, interview questions and the gap between passing a certification and running a live system.
+            I also share what I've learned. I write on <a href="https://www.linkedin.com/in/abrartech/" class="link text-ink" target="_blank" rel="noopener">LinkedIn</a> about real incidents and interview questions, and I wrote the <a href="#vault" class="link text-ink">Oracle DBA Interview Vault</a>, a preparation book for DBAs with up to five years of experience, available on <a href="https://topmate.io/mohammad_abrar_quazi/" class="link text-ink" target="_blank" rel="noopener">Topmate</a>.
           </p>
         </div>
       </div>
@@ -416,6 +442,70 @@
             </div>
           </li>
         </ul>
+      </div>
+    </section>
+
+    <!-- Interview Vault: the book, sold on Topmate -->
+    <section id="vault" class="section !pt-0">
+      <div class="wrap">
+        <div class="featured glass p-7 md:p-12 grid lg:grid-cols-[minmax(0,16rem)_1fr] gap-12 lg:gap-16 items-center">
+          <a href="https://topmate.io/mohammad_abrar_quazi/" class="book-link justify-self-center" target="_blank" rel="noopener" aria-label="Get the Oracle DBA Interview Vault on Topmate">
+            <div class="book" aria-hidden="true">
+              <div class="book-cover">
+                <p class="book-title">Oracle DBA<br>Interview Vault</p>
+                <p class="book-sub">0–5 Years Experience</p>
+                <p class="book-tag">Real interview questions, interviewer intent and production scenarios</p>
+                <p class="book-by">Prepared by<span>Abrar</span></p>
+              </div>
+            </div>
+          </a>
+          <div>
+            <h2 class="font-serif text-4xl md:text-5xl">Oracle DBA Interview Vault</h2>
+            <p class="mt-5 text-lg text-muted max-w-[38rem]">My interview preparation book for DBAs from fresher to five years of experience. It follows the way real Oracle DBA interviews unfold: the concept first, then the questions an interviewer asks next, then the production stories that prove you've done the work.</p>
+            <p class="mt-6 font-semibold">Every chapter gives you</p>
+            <ul class="mt-3 grid sm:grid-cols-2 gap-x-8 gap-y-2 text-muted list-disc pl-5 marker:text-beam">
+              <li>What the interviewer is really testing</li>
+              <li>A reference answer you can say out loud</li>
+              <li>The follow-up questions that expose shallow answers</li>
+              <li>Production scenarios with cause and fix</li>
+              <li>The commands you're expected to know</li>
+              <li>Common mistakes candidates make</li>
+            </ul>
+            <details class="chapters mt-7">
+              <summary>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                See all 21 chapters
+              </summary>
+              <ol class="mt-4 grid sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-1.5 text-sm text-muted list-decimal pl-6">
+                <li>Architecture</li>
+                <li>Database installation</li>
+                <li>Managing an Oracle instance</li>
+                <li>Redo management</li>
+                <li>Undo management</li>
+                <li>Listener configuration</li>
+                <li>Logical storage structure</li>
+                <li>Tablespace management</li>
+                <li>Patching</li>
+                <li>RMAN</li>
+                <li>Data Guard</li>
+                <li>Standby creation</li>
+                <li>Upgrading 12c to 19c</li>
+                <li>User management</li>
+                <li>Data Pump</li>
+                <li>Index tuning</li>
+                <li>Performance tuning</li>
+                <li>Crontab</li>
+                <li>Oracle RAC</li>
+                <li>GoldenGate</li>
+                <li>GoldenGate configuration and troubleshooting</li>
+              </ol>
+            </details>
+            <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a href="https://topmate.io/mohammad_abrar_quazi/" class="btn btn-primary" target="_blank" rel="noopener">Get the Vault on Topmate</a>
+              <p class="text-sm text-muted">Rated 5.0 by readers on Topmate</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -495,6 +585,7 @@
           <a href="mailto:coredb.io@gmail.com" class="link inline-block mt-10 font-serif text-2xl sm:text-4xl md:text-5xl break-all text-ink">coredb.io@gmail.com</a>
           <div class="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-muted">
             <a href="https://www.linkedin.com/in/abrartech/" class="link" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://topmate.io/mohammad_abrar_quazi/" class="link" target="_blank" rel="noopener">Topmate</a>
           </div>
         </div>
       </div>
